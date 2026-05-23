@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://chunk-english.pages.dev/sitemap-index.xml
