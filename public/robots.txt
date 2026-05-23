@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chunk-english.pages.dev/sitemap-index.xml
+Sitemap: https://chunk-english.closer0710.workers.dev/sitemap-index.xml

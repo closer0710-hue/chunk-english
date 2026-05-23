@@ -4,7 +4,7 @@ import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://chunk-english.pages.dev',
+  site: 'https://chunk-english.closer0710.workers.dev',
   adapter: cloudflare(),
   output: 'static',
   integrations: [sitemap()],
