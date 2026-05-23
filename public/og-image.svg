@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#fafaf8"/>
+  <rect x="0" y="0" width="8" height="630" fill="#2563eb"/>
+  <text x="80" y="260" font-family="system-ui, sans-serif" font-size="72" font-weight="700" fill="#1a1a1a" letter-spacing="-2">Chunk English</text>
+  <text x="80" y="340" font-family="system-ui, sans-serif" font-size="32" fill="#6b6b6b">英語表現をチャンクで学ぶブログ</text>
+  <text x="80" y="540" font-family="system-ui, sans-serif" font-size="24" fill="#2563eb">chunk-english.pages.dev</text>
+</svg>

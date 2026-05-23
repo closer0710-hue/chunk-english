@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 5);
+---
+
+<BaseLayout title="ホーム">
+  <section class="hero">
+    <h1>Chunk English</h1>
+    <p>英語表現を「チャンク（塊）」として身につけるブログ。<br />フレーズ・コロケーション・イディオムを文脈ごと覚えよう。</p>
+  </section>
+
+  <section class="recent">
+    <h2>最新記事</h2>
+    <ul class="post-list">
+      {
+        posts.map((post) => (
+          <li>
+            <a href={`/blog/${post.id}`}>
+              <span class="post-title">{post.data.title}</span>
+              <span class="post-meta">
+                <time datetime={post.data.pubDate.toISOString()}>
+                  {post.data.pubDate.toLocaleDateString('ja-JP', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </time>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <a class="all-link" href="/blog">すべての記事を見る →</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    padding: 3rem 0 2.5rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 2.5rem;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero p {
+    color: var(--color-muted);
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .recent h2 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+    margin-bottom: 1.25rem;
+  }
+
+  .post-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .post-list a {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  .post-list a:hover .post-title {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .post-title {
+    flex: 1;
+    font-size: 0.975rem;
+  }
+
+  .post-meta {
+    font-size: 0.825rem;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  .all-link {
+    font-size: 0.9rem;
+  }
+</style>

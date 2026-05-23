@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+const tagCounts = posts.reduce<Record<string, number>>((acc, post) => {
+  for (const tag of post.data.tags) {
+    acc[tag] = (acc[tag] ?? 0) + 1;
+  }
+  return acc;
+}, {});
+
+const tags = Object.entries(tagCounts).sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title="タグ一覧">
+  <h1>タグ一覧</h1>
+  <p class="count">全{tags.length}タグ</p>
+
+  <ul class="tag-list">
+    {
+      tags.map(([tag, count]) => (
+        <li>
+          <a href={`/tags/${tag}`}>
+            <span class="tag-name">#{tag}</span>
+            <span class="tag-count">{count}件</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .count {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    margin-bottom: 2rem;
+  }
+
+  .tag-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .tag-list a {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: 99px;
+    color: var(--color-text);
+    background: var(--color-surface);
+    transition: border-color 0.15s;
+  }
+
+  .tag-list a:hover {
+    border-color: var(--color-accent);
+    text-decoration: none;
+    color: var(--color-accent);
+  }
+
+  .tag-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .tag-count {
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+</style>
